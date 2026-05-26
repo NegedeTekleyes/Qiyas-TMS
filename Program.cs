@@ -17,3 +17,12 @@
 // 1. Make the variable nullable
 string? Region = null;
 Console.WriteLine(Region?.ToUpper()); // No exception, but no output either. The null-conditional operator (?.) prevents the method call if Region is null.
+
+
+// step 3 declare the first TMS variable
+string StudentName = "Alice";
+string StudentId = "S12345";
+int enrollmentCount = 3;
+decimal courseFee = 199.99m;
+decimal GPA = 3.75m;
+Console.WriteLine($"Student Name: {StudentName}, Student ID: {StudentId}, Enrollment Count: {enrollmentCount}, Course Fee: {courseFee}, GPA: {GPA}");
