@@ -97,14 +97,41 @@
 //     }
 // }
 
-var enrollment1 = new EnrollmentRecord("S12345", "C67890", DateTime.UtcNow);
-// enrollment1.CourseId = "Hacked"; // This will cause a compile-time error because record types are immutable by default, and their properties cannot be modified after initialization.
-Console.WriteLine($"Enrollment Record: {enrollment1.StudentId}, CourseId: {enrollment1.CourseId}, EnrolledAt: {enrollment1.EnrolledAt}");
+// var enrollment1 = new EnrollmentRecord("S12345", "C67890", DateTime.UtcNow);
+// // enrollment1.CourseId = "Hacked"; // This will cause a compile-time error because record types are immutable by default, and their properties cannot be modified after initialization.
+// Console.WriteLine($"Enrollment Record: {enrollment1.StudentId}, CourseId: {enrollment1.CourseId}, EnrolledAt: {enrollment1.EnrolledAt}");
 
-// update the record with a new instance
-var correctedEnrollemnt = enrollment1 with { CourseId = "C#" }; // This creates a new instance of EnrollmentRecord with the updated CourseId, while keeping the other properties the same.
-Console.WriteLine($"Corrected Enrollment Record: {correctedEnrollemnt.StudentId}), CourseId: {correctedEnrollemnt.CourseId}, EnrolledAt: {correctedEnrollemnt.EnrolledAt}");
+// // update the record with a new instance
+// var correctedEnrollemnt = enrollment1 with { CourseId = "C#" }; // This creates a new instance of EnrollmentRecord with the updated CourseId, while keeping the other properties the same.
+// Console.WriteLine($"Corrected Enrollment Record: {correctedEnrollemnt.StudentId}), CourseId: {correctedEnrollemnt.CourseId}, EnrolledAt: {correctedEnrollemnt.EnrolledAt}");
 
-// Value equality check
-var duplicate = new EnrollmentRecord("S12345", "C#", enrollment1.EnrolledAt);
-Console.WriteLine($"Are enrollment1 and duplicate equal? {enrollment1 == duplicate}");  // this will return bool values false because they are different instances, but they have the same values. This is one of the key features of record types: they provide value-based equality by default, meaning that two record instances are considered equal if their properties have the same values, regardless of whether they are the same instance in memory.
+// // Value equality check
+// var duplicate = new EnrollmentRecord("S12345", "C#", enrollment1.EnrolledAt);
+// Console.WriteLine($"Are enrollment1 and duplicate equal? {enrollment1 == duplicate}");  // this will return bool values false because they are different instances, but they have the same values. This is one of the key features of record types: they provide value-based equality by default, meaning that two record instances are considered equal if their properties have the same values, regardless of whether they are the same instance in memory.
+
+
+
+// Exercise 3 — Part 2: Course Capacity with the field Keyword 
+
+    // The situation: The Course entity needs to be mutable — courses can change capacity and 
+    // update titles throughout a semester. But the legacy code let anyone set Capacity = -5 with no 
+    // complaint. In production, a negative capacity made the enrollment check if (course.EnrolledCount 
+    // >= course.Capacity) pass immediately, blocking all students from a 30-seat course. 
+    // Before C# 14, enforcing validation on a property required a private backing field and seven lines 
+    // of boilerplate for one simple check.
+public class Course
+{
+    private int _capacity;
+    public int Capacity
+    {
+        get => _capacity;
+        set
+        {
+            if (value < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(value), "Capacity cannot be negative.");
+            }
+            _capacity = value;
+        }
+    }
+}
