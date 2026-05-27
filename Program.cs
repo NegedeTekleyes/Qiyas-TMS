@@ -42,9 +42,9 @@
     //  Legacy implementation — the bug that caused the audit failure 
      double grantPerStudent = 1999.99; 
     double totalAllocation = grantPerStudent * 100_000; // This may show a value like 970.0000000000001 due to precision issues.
-
+    Console.WriteLine($"Final amount with double: {totalAllocation}");
     // step 2: show the fix with decimal
-    decimal grantPerStudentDecimal = 1000.99m;
+    decimal grantPerStudentDecimal = 1999.99m;
     decimal discountDecimal = 0.03m;
     decimal finalAmountDecimal = grantPerStudentDecimal - (grantPerStudentDecimal * discountDecimal);
     Console.WriteLine($"Final Amount with decimal: {finalAmountDecimal}"); // This will show the correct value without precision issues.
@@ -118,20 +118,94 @@
     // complaint. In production, a negative capacity made the enrollment check if (course.EnrolledCount 
     // >= course.Capacity) pass immediately, blocking all students from a 30-seat course. 
     // Before C# 14, enforcing validation on a property required a private backing field and seven lines 
-    // of boilerplate for one simple check.
-public class Course
+//     // of boilerplate for one simple check.
+// public class Course
+// {
+//     private int _capacity;
+//     public int Capacity
+//     {
+//         get => _capacity;
+//         set
+//         {
+//             if (value < 0)
+//             {
+//                 throw new ArgumentOutOfRangeException(nameof(value), "Capacity cannot be negative.");
+//             }
+//             _capacity = value;
+//         }
+        
+//     }
+
+// }
+
+// class Programs
+// {
+//     static void Main()
+//     {
+//         var course = new Course();
+//         course.Capacity = 30; // This will work fine.
+//         // course.Capacity = -5; // This will throw an ArgumentOutOfRangeException
+//         Console.WriteLine($"Course Capacity: {course.Capacity}"); // This will show the current capacity of the course.
+//     }
+// }
+
+
+
+var course1 = new Courses
 {
-    private int _capacity;
-    public int Capacity
+    Code = "C101",
+    Title = "Introduction to C#",
+    Capacity = 30,
+    EnrolledCount = 25
+};
+Console.WriteLine($"Course Code: {course1.Code}, Title: {course1.Title}, Capacity: {course1.Capacity}, Enrolled Count: {course1.EnrolledCount}");
+
+// invalid capacity show throw an error
+try
+{
+    course1.Capacity = -5;
+}
+catch (ArgumentOutOfRangeException ex)
+{
+    Console.WriteLine($"Error: {ex.Message}");
+}
+
+
+var s = new Student
+{
+    Name = "Bob",
+    Age = 20,
+    GPA = 3.5m
+};
+Console.WriteLine($"Student Name: {s.Name}, Age: {s.Age}, GPA: {s.GPA}");
+
+// 
+void PrintGradeReport (IEnumerable<IGradable>assesment)
+{
+    Console.WriteLine("--Grade Report--");
+    foreach(var items in assesment)
     {
-        get => _capacity;
-        set
-        {
-            if (value < 0)
-            {
-                throw new ArgumentOutOfRangeException(nameof(value), "Capacity cannot be negative.");
-            }
-            _capacity = value;
-        }
+        Console.WriteLine($"{items.Title}: {items.CalculateGrade():F2}%");
+    }
+}
+
+// test in one array 
+IGradable[] chortAssesment = 
+[
+new Quiz {Title="C#",correctAnswer= 18, TotalQuetions=20},
+new  LabAssigment {Title="API Integration",FunctionalitySore = 90m, CodeQuality=85m}
+];
+PrintGradeReport(chortAssesment);
+
+// Exercise 4: Defeating the “Pyramid of Doom” (LO 1.6: Pattern
+    // Matching & Guards)
+    // The situation: The enrollment team asked for a simple validation: “Before registering a
+    // student, check that the student exists, the course exists, and the course is not full.” The
+    // previous developer wrote this
+if (s != null)
+{
+    if (course1 != null)
+    {
+        if (course1.Capacity > 0);
     }
 }
