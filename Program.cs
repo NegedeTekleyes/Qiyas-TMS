@@ -209,3 +209,20 @@ if (s != null)
         if (course1.Capacity > 0);
     }
 }
+
+// guard clause approach
+if (s is null)
+{
+    Console.WriteLine("Student does not exist.");
+    return;
+}
+if (course1 is null)
+{
+    Console.WriteLine("Course does not exist.");
+    return;
+}
+if (course1.Capacity <= 0)
+{
+    Console.WriteLine("Course is full.");
+    return;
+}
