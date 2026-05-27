@@ -62,38 +62,49 @@
     // was accidentally mutating the data during processing. Because the DTO used public set 
     // properties, the compiler could not prevent the mutation
 
-public class Enrollment
-{
-    public string StudentId { get; set; } = string.Empty;
-    public string CourseId { get; set; } = string.Empty;
-    public DateTime EnrollmentDate { get; set; }
+// public class Enrollment
+// {
+//     public string StudentId { get; set; } = string.Empty;
+//     public string CourseId { get; set; } = string.Empty;
+//     public DateTime EnrollmentDate { get; set; }
 
-}
+// }
 
-// logging service that mutates the data
-class LoggingService
-{
-    public void LogEnrollment(Enrollment enrollment)
-    {
-        // accidentally mutating the data
-        // enrollment.CourseId = null;
-        Console.WriteLine($"Logging: {enrollment.CourseId}");
-    }
+// // logging service that mutates the data
+// class LoggingService
+// {
+//     public void LogEnrollment(Enrollment enrollment)
+//     {
+//         // accidentally mutating the data
+//         // enrollment.CourseId = null;
+//         Console.WriteLine($"Logging: {enrollment.CourseId}");
+//     }
 
-}
-class Courses
-{
-    static void Main()
-    {
-var enrollment = new Enrollment
-    {
-        StudentId = "S12345",
-        CourseId = "C67890",
-        EnrollmentDate = DateTime.UtcNow
-    };
-    var logger = new LoggingService();
-    logger.LogEnrollment(enrollment);
-      Console.WriteLine($"After Logging: {enrollment.CourseId}"); // This will show the mutated value if the logging service mutates it.  
-    }
-}
+// }
+// class Courses
+// {
+//     static void Main()
+//     {
+// var enrollment = new Enrollment
+//     {
+//         StudentId = "S12345",
+//         CourseId = "C67890",
+//         EnrollmentDate = DateTime.UtcNow
+//     };
+//     var logger = new LoggingService();
+//     logger.LogEnrollment(enrollment);
+//       Console.WriteLine($"After Logging: {enrollment.CourseId}"); // This will show the mutated value if the logging service mutates it.  
+//     }
+// }
 
+var enrollment1 = new EnrollmentRecord("S12345", "C67890", DateTime.UtcNow);
+// enrollment1.CourseId = "Hacked"; // This will cause a compile-time error because record types are immutable by default, and their properties cannot be modified after initialization.
+Console.WriteLine($"Enrollment Record: {enrollment1.StudentId}, CourseId: {enrollment1.CourseId}, EnrolledAt: {enrollment1.EnrolledAt}");
+
+// update the record with a new instance
+var correctedEnrollemnt = enrollment1 with { CourseId = "C#" }; // This creates a new instance of EnrollmentRecord with the updated CourseId, while keeping the other properties the same.
+Console.WriteLine($"Corrected Enrollment Record: {correctedEnrollemnt.StudentId}), CourseId: {correctedEnrollemnt.CourseId}, EnrolledAt: {correctedEnrollemnt.EnrolledAt}");
+
+// Value equality check
+var duplicate = new EnrollmentRecord("S12345", "C#", enrollment1.EnrolledAt);
+Console.WriteLine($"Are enrollment1 and duplicate equal? {enrollment1 == duplicate}");  // this will return bool values false because they are different instances, but they have the same values. This is one of the key features of record types: they provide value-based equality by default, meaning that two record instances are considered equal if their properties have the same values, regardless of whether they are the same instance in memory.
