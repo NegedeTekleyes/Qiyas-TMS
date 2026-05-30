@@ -2,7 +2,8 @@ import { Temporal } from "@js-temporal/polyfill";
 import type { Student } from "./models/student.model.js";
 import  { isStudent } from "./models/student.model.js";
 import { parseStudent } from "./models/student.model.js";
-
+import type {AssesmentItem} from "./models/assesment.model.js";
+import {calculateGrade} from "./models/assesment.model.js";
 const student: Student = {
   id: "STU-001",
   name: "Hana Tadesse",
@@ -35,3 +36,22 @@ processStudent({
 console.log(parseStudent({id:"STU-003",name:"Negede",}))
 
 // console.log(parseStudent({id:42, name: "Negede"}))
+
+const quiz: AssesmentItem = {
+    id: "QUIZ-001",
+    kind: "quiz",
+    title: "SQL Basics",
+    correctAnswer: 8,
+    totalQuestions: 10
+}
+
+const lab: AssesmentItem = {
+    id: "LAB-001",
+    kind: "lab",
+    title: "REST API Project",
+    functionalityScore: 85,
+    codeQualityScore: 90
+}
+console.log(`Quiz Grade: ${calculateGrade(quiz)}%`);
+console.log(`Lab Grade: ${calculateGrade(lab)}%`);
+// quiz.id = "QUIZ-002"; // Error: Cannot assign to 'id' because it is a read-only property.
