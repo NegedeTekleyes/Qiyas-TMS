@@ -25,3 +25,8 @@ public class CapacityReachedException : InvalidOperationException
         CourseCode = courseCode;
     }
 }
+
+// Step 2 Use Theminthe Enrollment Pipeline
+// Update EnrollmentService.cs. Replace the capacity check InvalidOperationException with
+// the new CapacityReachedException:
+
