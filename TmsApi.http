@@ -1,5 +1,6 @@
 @TmsApi_HostAddress = http://localhost:5298
 
+###
 GET {{TmsApi_HostAddress}}/api/assesments/results/
 Accept: application/json
 
@@ -9,4 +10,100 @@ Accept: application/json
 
 ###
 GET {{TmsApi_HostAddress}}/api/test/translation-fail
+Accept: application/json
+
+###
+GET {{TmsApi_HostAddress}}/api/test/translation-fail
+Accept: application/json
+
+###
+GET {{TmsApi_HostAddress}}/api/students?page=1
+Accept: application/json
+
+###
+GET {{TmsApi_HostAddress}}/api/test/top-courses
+Accept: application/json
+
+###
+PATCH {{TmsApi_HostAddress}}/api/students/1?name=Alice+Updated&gpa=3.9&isActive=true
+Accept: application/json
+
+###
+PATCH {{TmsApi_HostAddress}}/api/students/1?name=Alice+FromB
+Accept: application/json
+
+###
+GET {{TmsApi_HostAddress}}/api/courses/1
+Accept: application/json
+
+###
+GET {{TmsApi_HostAddress}}/api/courses/1/enrollments?studentId=1
+Accept: application/json
+
+###
+GET {{TmsApi_HostAddress}}/api/courses?page=1&pageSize=10
+Accept: application/json
+
+###
+GET {{TmsApi_HostAddress}}/api/courses?page=3&pageSize=10
+Accept: application/json
+
+###
+GET {{TmsApi_HostAddress}}/api/courses?pageSize=999
+Accept: application/json
+
+###
+GET {{TmsApi_HostAddress}}/api/courses?search=fund
+Accept: application/json
+
+###
+GET {{TmsApi_HostAddress}}/api/courses?orderBy=Code&descending=true&pageSize=5
+Accept: application/json
+
+###
+GET {{TmsApi_HostAddress}}/api/v1/courses
+Accept: application/json
+
+###
+GET {{TmsApi_HostAddress}}/api/v2/courses
+Accept: application/json
+
+###
+POST {{TmsApi_HostAddress}}/api/v2/enrollments
+Content-Type: application/json
+Accept: application/json
+
+{
+  "studentId": 1,
+  "courseCode": "CSE-101"
+}
+###   
+POST {{TmsApi_HostAddress}}/api/v2/enrollments
+Content-Type: application/json
+Accept: application/json
+
+{
+  "studentId": 1,
+  "courseCode": "invalid"
+}
+###     
+POST {{TmsApi_HostAddress}}/api/v2/enrollments
+Content-Type: application/json
+Accept: application/json
+
+{
+  "studentId": 1,
+  "courseCode": "ZZZ-999"
+}
+###
+POST {{TmsApi_HostAddress}}/api/v2/enrollments
+Content-Type: application/json
+Accept: application/json
+
+{
+  "studentId": 1,
+  "courseCode": "CSE-101"
+}
+###
+GET {{TmsApi_HostAddress}}/api/v2/enrollments/1/schedule
 Accept: application/json

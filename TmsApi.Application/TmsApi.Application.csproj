@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\TmsApi.Domain\TmsApi.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="FluentValidation">
+      <HintPath>C:\Users\hp\.nuget\packages\fluentvalidation\12.1.1\lib\net8.0\FluentValidation.dll</HintPath>
+    </Reference>
+    <Reference Include="MediatR">
+      <HintPath>C:\Users\hp\.nuget\packages\mediatr\14.2.0\lib\net10.0\MediatR.dll</HintPath>
+    </Reference>
+    <Reference Include="MediatR.Contracts">
+      <HintPath>C:\Users\hp\.nuget\packages\mediatr.contracts\2.0.1\lib\netstandard2.0\MediatR.Contracts.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.EntityFrameworkCore">
+      <HintPath>C:\Users\hp\.nuget\packages\microsoft.entityframeworkcore\10.0.10\lib\net10.0\Microsoft.EntityFrameworkCore.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.Abstractions">
+      <HintPath>C:\Users\hp\.nuget\packages\microsoft.extensions.configuration.abstractions\10.0.10\lib\net10.0\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions">
+      <HintPath>C:\Users\hp\.nuget\packages\microsoft.extensions.logging.abstractions\10.0.10\lib\net10.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="10.0.11" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+</Project>

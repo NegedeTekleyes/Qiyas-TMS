@@ -2,27 +2,30 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using TmsApi.Data;
+using TmsApi.Infrastructure.Persistence;
 
 #nullable disable
 
-namespace TmsApi.Migrations
+namespace TmsApi.Infrastructure.Migrations
 {
     [DbContext(typeof(TmsDbContext))]
-    partial class TmsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260716095415_PostSplitBaseline")]
+    partial class PostSplitBaseline
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "10.0.9")
+                .HasAnnotation("ProductVersion", "10.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("TmsApi.Entities.Assessment", b =>
+            modelBuilder.Entity("TmsApi.Domain.Entities.Assessment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -50,7 +53,7 @@ namespace TmsApi.Migrations
                     b.ToTable("Assesment");
                 });
 
-            modelBuilder.Entity("TmsApi.Entities.Certificate", b =>
+            modelBuilder.Entity("TmsApi.Domain.Entities.Certificate", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -80,7 +83,7 @@ namespace TmsApi.Migrations
                     b.ToTable("Certificate");
                 });
 
-            modelBuilder.Entity("TmsApi.Entities.Course", b =>
+            modelBuilder.Entity("TmsApi.Domain.Entities.Course", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -109,7 +112,7 @@ namespace TmsApi.Migrations
                     b.ToTable("Courses");
                 });
 
-            modelBuilder.Entity("TmsApi.Entities.Enrollment", b =>
+            modelBuilder.Entity("TmsApi.Domain.Entities.Enrollment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -148,7 +151,7 @@ namespace TmsApi.Migrations
                     b.ToTable("Enrollments");
                 });
 
-            modelBuilder.Entity("TmsApi.Entities.Student", b =>
+            modelBuilder.Entity("TmsApi.Domain.Entities.Student", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -190,9 +193,9 @@ namespace TmsApi.Migrations
                     b.ToTable("Students");
                 });
 
-            modelBuilder.Entity("TmsApi.Entities.Assessment", b =>
+            modelBuilder.Entity("TmsApi.Domain.Entities.Assessment", b =>
                 {
-                    b.HasOne("TmsApi.Entities.Course", "Course")
+                    b.HasOne("TmsApi.Domain.Entities.Course", "Course")
                         .WithMany()
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -201,15 +204,15 @@ namespace TmsApi.Migrations
                     b.Navigation("Course");
                 });
 
-            modelBuilder.Entity("TmsApi.Entities.Certificate", b =>
+            modelBuilder.Entity("TmsApi.Domain.Entities.Certificate", b =>
                 {
-                    b.HasOne("TmsApi.Entities.Course", "Course")
+                    b.HasOne("TmsApi.Domain.Entities.Course", "Course")
                         .WithMany()
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TmsApi.Entities.Student", "Student")
+                    b.HasOne("TmsApi.Domain.Entities.Student", "Student")
                         .WithMany()
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -220,15 +223,15 @@ namespace TmsApi.Migrations
                     b.Navigation("Student");
                 });
 
-            modelBuilder.Entity("TmsApi.Entities.Enrollment", b =>
+            modelBuilder.Entity("TmsApi.Domain.Entities.Enrollment", b =>
                 {
-                    b.HasOne("TmsApi.Entities.Course", "Course")
+                    b.HasOne("TmsApi.Domain.Entities.Course", "Course")
                         .WithMany("Enrollments")
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("TmsApi.Entities.Student", "Student")
+                    b.HasOne("TmsApi.Domain.Entities.Student", "Student")
                         .WithMany("Enrollments")
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -239,12 +242,12 @@ namespace TmsApi.Migrations
                     b.Navigation("Student");
                 });
 
-            modelBuilder.Entity("TmsApi.Entities.Course", b =>
+            modelBuilder.Entity("TmsApi.Domain.Entities.Course", b =>
                 {
                     b.Navigation("Enrollments");
                 });
 
-            modelBuilder.Entity("TmsApi.Entities.Student", b =>
+            modelBuilder.Entity("TmsApi.Domain.Entities.Student", b =>
                 {
                     b.Navigation("Enrollments");
                 });
